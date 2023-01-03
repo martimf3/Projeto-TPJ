@@ -9,11 +9,12 @@ from particles import ParticleEffect
 from game_data import levels
 
 class Level:
-	def __init__(self,current_level,surface,create_overworld,change_coins,change_health):
+	def __init__(self,current_level,surface,create_overworld, create_level,change_coins,change_health):
 		# general setup
 		self.display_surface = surface
 		self.world_shift = 0
 		self.current_x = None
+		self.create_level = create_level
 
 		# audio 
 		self.coin_sound = pygame.mixer.Sound('audio/effects/coin.wav')
@@ -191,11 +192,16 @@ class Level:
 
 	def check_death(self):
 		if self.player.sprite.rect.top > screen_height:
-			self.create_overworld(self.current_level,0)
+			pygame.mixer.pause()
+			self.create_level(self.current_level)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
-			self.create_overworld(self.current_level,self.new_max_level)
+			if self.current_level == 0:
+				pygame.mixer.pause()
+				self.create_level(self.current_level + 1)
+			if self.current_level == 1:
+				self.create_overworld(0)
 			
 	def check_coin_collisions(self):
 		collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
