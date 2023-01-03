@@ -18,18 +18,8 @@ class Sky:
 
 		self.style = style
 		if self.style == 'overworld':
-			palm_surfaces = import_folder('graphics/overworld/palms')
-			self.palms = []
-
-			for surface in [choice(palm_surfaces) for image in range(10)]:
-				x = randint(0,screen_width)
-				y = (self.horizon * tile_size) + randint(50,100)
-				rect = surface.get_rect(midbottom = (x,y))
-				self.palms.append((surface,rect))
-
 			cloud_surfaces = import_folder('graphics/overworld/clouds')
 			self.clouds = []
-
 			for surface in [choice(cloud_surfaces) for image in range(10)]:
 				x = randint(0,screen_width)
 				y = randint(0,(self.horizon * tile_size) - 100)
@@ -47,8 +37,6 @@ class Sky:
 				surface.blit(self.bottom,(0,y))
 
 		if self.style == 'overworld':
-			for palm in self.palms:
-				surface.blit(palm[0],palm[1])
 			for cloud in self.clouds:
 				surface.blit(cloud[0],cloud[1])
 
