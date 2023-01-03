@@ -42,13 +42,13 @@ class Overworld:
 		# Options
 
 		option1_rect = self.option_1.get_rect(center=(screen_width/2, screen_height/2))
-		screen.blit(self.option_1, (option1_rect.x,self.text_y))
+		screen.blit(self.option_1, (option1_rect.x,self.text_y + 50))
 
 		option2_rect = self.option_2.get_rect(center=(screen_width/2, screen_height/2))
-		screen.blit(self.option_2, (option2_rect.x, self.text_y + 50))
+		screen.blit(self.option_2, (option2_rect.x, self.text_y + 100))
 
 		# Draw arrow
-		screen.blit(self.arrow_image, (self.arrow_x,self.arrow_y))
+		screen.blit(self.arrow_image, (self.arrow_x,self.arrow_y + 50))
 
 		# Update the display
 		pygame.display.update()
