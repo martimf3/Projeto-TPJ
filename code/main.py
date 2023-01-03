@@ -69,7 +69,8 @@ class Game:
 # Pygame setup
 pygame.init()
 pygame.display.set_caption("Scraggle: Get the Diamond to Win!")
-#pygame_icon = pygame.image.load()
+game_icon = pygame.image.load('graphics/ui/icon.png')
+pygame.display.set_icon(game_icon)
 screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
 game = Game()
@@ -80,8 +81,8 @@ while True:
 			pygame.quit()
 			sys.exit()
 	
-	screen.fill('grey')
 	game.run()
-
+	
 	pygame.display.update()
+	
 	clock.tick(60)
