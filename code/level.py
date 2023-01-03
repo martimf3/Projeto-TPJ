@@ -7,14 +7,18 @@ from decoration import Sky, Water, Clouds
 from player import Player
 from particles import ParticleEffect
 from game_data import levels
+from coin_observer import CoinCounter,CoinCounterDisplay
 
 class Level:
-	def __init__(self,current_level,surface,create_overworld, create_level,change_coins,change_health):
+	def __init__(self,current_level,surface,create_overworld, create_level,change_health):
 		# general setup
 		self.display_surface = surface
 		self.world_shift = 0
 		self.current_x = None
 		self.create_level = create_level
+		self.coin_counter = CoinCounter()
+		self.coin_counter_surf = CoinCounterDisplay(self.coin_counter, self.display_surface)
+		self.change_health = change_health
 
 		# audio 
 		self.coin_sound = pygame.mixer.Sound('audio/effects/coin.wav')
@@ -32,7 +36,7 @@ class Level:
 		self.player_setup(player_layout,change_health)
 
 		# user interface 
-		self.change_coins = change_coins
+		#self.change_coins = change_coins
 
 		# dust 
 		self.dust_sprite = pygame.sprite.GroupSingle()
@@ -200,7 +204,9 @@ class Level:
 	def check_death(self):
 		if self.player.sprite.rect.top > screen_height:
 			pygame.mixer.pause()
+			self.coin_counter_surf.update(0)
 			self.create_level(self.current_level)
+			#self.change_health(100)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):
@@ -215,8 +221,8 @@ class Level:
 		if collided_coins:
 			self.coin_sound.play()
 			for coin in collided_coins:
-				self.change_coins(coin.value)
-
+				self.coin_counter.collect_coin(coin.value)
+				
 	def check_enemy_collisions(self):
 		enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy_sprites,False)
 
@@ -235,11 +241,12 @@ class Level:
 					self.player.sprite.get_damage()
 
 	def run(self):
-		# run the entire game / level 
-		
+		# run the entire game / level
 		# sky 
 		self.sky.draw(self.display_surface)
 		self.clouds.draw(self.display_surface,self.world_shift)
+		#coin_count = self.coin_counter.get_coin_count()
+		self.coin_counter_surf.update(self.coin_counter.get_coin_count()) 
 
 		# dust particles 
 		self.dust_sprite.update(self.world_shift)
@@ -287,6 +294,6 @@ class Level:
 
 		self.check_coin_collisions()
 		self.check_enemy_collisions()
-
 		# water 
 		self.water.draw(self.display_surface,self.world_shift)
+		
