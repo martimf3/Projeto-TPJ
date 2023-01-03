@@ -1,7 +1,7 @@
 import pygame 
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
-from tiles import Tile, StaticTile, Coin
+from tiles import Tile, StaticTile, Coin, Diamond
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
 from player import Player
@@ -54,8 +54,8 @@ class Level:
 		self.coin_sprites = self.create_tile_group(coin_layout,'coins')
 
 		# Diamond 
-		#constraint_layout = import_csv_layout(level_data['diamond'])
-		#self.constraint_sprites = self.create_tile_group(constraint_layout,'diamond')
+		diamond_layout = import_csv_layout(level_data['diamond'])
+		self.diamond_sprites = self.create_tile_group(diamond_layout,'diamond')
 
 		# enemy 
 		enemy_layout = import_csv_layout(level_data['enemies'])
@@ -93,6 +93,9 @@ class Level:
 					if type == 'coins':
 						if val == '0': sprite = Coin(tile_size,x,y,'graphics/coins/gold',5)
 						if val == '1': sprite = Coin(tile_size,x,y,'graphics/coins/silver',1)
+
+					if type == 'diamond':
+						sprite = Diamond(tile_size,x,y,'graphics/coins/gold')
 
 					if type == 'enemies':
 						sprite = Enemy(tile_size,x,y)
@@ -200,7 +203,7 @@ class Level:
 			self.create_level(self.current_level)
 			
 	def check_win(self):
-		if pygame.sprite.spritecollide(self.player.sprite,self.goal,False):
+		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):
 			if self.current_level == 0:
 				pygame.mixer.pause()
 				self.create_level(self.current_level + 1)
@@ -261,6 +264,10 @@ class Level:
 		# coins 
 		self.coin_sprites.update(self.world_shift)
 		self.coin_sprites.draw(self.display_surface)
+
+		# self
+		self.diamond_sprites.update(self.world_shift)
+		self.diamond_sprites.draw(self.display_surface)
 
 		# player sprites
 		self.player.update()
