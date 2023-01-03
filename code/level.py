@@ -53,6 +53,10 @@ class Level:
 		coin_layout = import_csv_layout(level_data['coins'])
 		self.coin_sprites = self.create_tile_group(coin_layout,'coins')
 
+		# Diamond 
+		#constraint_layout = import_csv_layout(level_data['diamond'])
+		#self.constraint_sprites = self.create_tile_group(constraint_layout,'diamond')
+
 		# enemy 
 		enemy_layout = import_csv_layout(level_data['enemies'])
 		self.enemy_sprites = self.create_tile_group(enemy_layout,'enemies')
