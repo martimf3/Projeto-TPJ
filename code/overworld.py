@@ -57,8 +57,8 @@ class Overworld:
 		self.first_level = first_level
 
 		# Render the menu options
-		self.title = self.font_title.render("NAME OF THE GAME", True, self.WHITE)
-		self.option_1 = self.font.render(" START THE GAME ", True, self.WHITE)
+		self.title = self.font_title.render("SCRAGGLE", True, self.WHITE)
+		self.option_1 = self.font.render(" NEW GAME ", True, self.WHITE)
 		self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
 		self.text_y = 420
 		self.arrow_y = self.text_y - 20
@@ -95,9 +95,9 @@ class Overworld:
 	def Change_Text_Color(self):
 		if self.option == 0:
 			self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
-			self.option_1 = self.font.render(" START THE GAME ", True, self.GREEN)
+			self.option_1 = self.font.render(" NEW GAME ", True, self.GREEN)
 		else:
-			self.option_1 = self.font.render(" START THE GAME ", True, self.WHITE)
+			self.option_1 = self.font.render(" NEW GAME ", True, self.WHITE)
 			self.option_2 = self.font.render(" QUIT ", True, self.GREEN)
 		
 

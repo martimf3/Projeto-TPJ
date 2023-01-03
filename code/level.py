@@ -1,7 +1,7 @@
 import pygame 
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
-from tiles import Tile, StaticTile, Crate, Coin, Palm
+from tiles import Tile, StaticTile, Coin
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
 from player import Player
@@ -23,7 +23,6 @@ class Level:
 		self.create_overworld = create_overworld
 		self.current_level = current_level
 		level_data = levels[self.current_level]
-		self.new_max_level = level_data['unlock']
 
 		# player 
 		player_layout = import_csv_layout(level_data['player'])
@@ -49,21 +48,9 @@ class Level:
 		grass_layout = import_csv_layout(level_data['grass'])
 		self.grass_sprites = self.create_tile_group(grass_layout,'grass')
 
-		# crates 
-		crate_layout = import_csv_layout(level_data['crates'])
-		self.crate_sprites = self.create_tile_group(crate_layout,'crates')
-
 		# coins 
 		coin_layout = import_csv_layout(level_data['coins'])
 		self.coin_sprites = self.create_tile_group(coin_layout,'coins')
-
-		# foreground palms 
-		fg_palm_layout = import_csv_layout(level_data['fg palms'])
-		self.fg_palm_sprites = self.create_tile_group(fg_palm_layout,'fg palms')
-
-		# background palms 
-		bg_palm_layout = import_csv_layout(level_data['bg palms'])
-		self.bg_palm_sprites = self.create_tile_group(bg_palm_layout,'bg palms')
 
 		# enemy 
 		enemy_layout = import_csv_layout(level_data['enemies'])
@@ -97,20 +84,10 @@ class Level:
 						grass_tile_list = import_cut_graphics('graphics/decoration/grass/grass.png')
 						tile_surface = grass_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
-					
-					if type == 'crates':
-						sprite = Crate(tile_size,x,y)
 
 					if type == 'coins':
 						if val == '0': sprite = Coin(tile_size,x,y,'graphics/coins/gold',5)
 						if val == '1': sprite = Coin(tile_size,x,y,'graphics/coins/silver',1)
-
-					if type == 'fg palms':
-						if val == '0': sprite = Palm(tile_size,x,y,'graphics/terrain/palm_small',38)
-						if val == '1': sprite = Palm(tile_size,x,y,'graphics/terrain/palm_large',64)
-
-					if type == 'bg palms':
-						sprite = Palm(tile_size,x,y,'graphics/terrain/palm_bg',64)
 
 					if type == 'enemies':
 						sprite = Enemy(tile_size,x,y)
@@ -151,7 +128,7 @@ class Level:
 	def horizontal_movement_collision(self):
 		player = self.player.sprite
 		player.collision_rect.x += player.direction.x * player.speed
-		collidable_sprites = self.terrain_sprites.sprites() + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+		collidable_sprites = self.terrain_sprites.sprites()
 		for sprite in collidable_sprites:
 			if sprite.rect.colliderect(player.collision_rect):
 				if player.direction.x < 0: 
@@ -166,7 +143,7 @@ class Level:
 	def vertical_movement_collision(self):
 		player = self.player.sprite
 		player.apply_gravity()
-		collidable_sprites = self.terrain_sprites.sprites() + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
+		collidable_sprites = self.terrain_sprites.sprites()
 
 		for sprite in collidable_sprites:
 			if sprite.rect.colliderect(player.collision_rect):
@@ -250,10 +227,6 @@ class Level:
 		# sky 
 		self.sky.draw(self.display_surface)
 		self.clouds.draw(self.display_surface,self.world_shift)
-		
-		# background palms
-		self.bg_palm_sprites.update(self.world_shift)
-		self.bg_palm_sprites.draw(self.display_surface) 
 
 		# dust particles 
 		self.dust_sprite.update(self.world_shift)
@@ -271,10 +244,6 @@ class Level:
 		self.explosion_sprites.update(self.world_shift)
 		self.explosion_sprites.draw(self.display_surface)
 
-		# crate 
-		self.crate_sprites.update(self.world_shift)
-		self.crate_sprites.draw(self.display_surface)
-
 		# grass
 		self.grass_sprites.update(self.world_shift)
 		self.grass_sprites.draw(self.display_surface)
@@ -282,10 +251,6 @@ class Level:
 		# coins 
 		self.coin_sprites.update(self.world_shift)
 		self.coin_sprites.draw(self.display_surface)
-
-		# foreground palms
-		self.fg_palm_sprites.update(self.world_shift)
-		self.fg_palm_sprites.draw(self.display_surface)
 
 		# player sprites
 		self.player.update()
