@@ -23,7 +23,7 @@ class Victory:
 		# Render the menu options
 
 		self.option_1 = self.font.render(" PLAY AGAIN ", True, self.WHITE)
-		self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
+		self.option_2 = self.font.render(" BACK TO MAIN MENU ", True, self.WHITE)
 		self.text_y = 420
 		self.arrow_y = self.text_y - 20
 		self.option = 0
@@ -56,11 +56,11 @@ class Victory:
 
 	def Change_Text_Color(self):
 		if self.option == 0:
-			self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
+			self.option_2 = self.font.render(" BACK TO MAIN MENU ", True, self.WHITE)
 			self.option_1 = self.font.render(" PLAY AGAIN ", True, self.GREEN)
 		else:
 			self.option_1 = self.font.render(" PLAY AGAIN ", True, self.WHITE)
-			self.option_2 = self.font.render(" QUIT ", True, self.GREEN)
+			self.option_2 = self.font.render(" BACK TO MAIN MENU ", True, self.GREEN)
 		
 
 	def Update(self):
@@ -78,12 +78,12 @@ class Victory:
 		elif keys[pygame.K_DOWN] and self.option == 0:
 			self.blip_sound.play()
 			self.option = 1
-			self.arrow_x += 75
+			self.arrow_x += -55
 			self.arrow_y += 55
 		elif keys[pygame.K_UP] and self.option == 1:
 			self.blip_sound.play()
 			self.option = 0
-			self.arrow_x -= 75
+			self.arrow_x -= -55
 			self.arrow_y += -55
 		
 		self.Change_Text_Color()

@@ -21,6 +21,8 @@ class Game:
 		# audio 
 		self.level_bg_music = pygame.mixer.Sound('audio/level_music.wav')
 		self.overworld_bg_music = pygame.mixer.Sound('audio/overworld_music.wav')
+		self.victory_music = pygame.mixer.Sound('audio/diamonds.wav')
+		self.game_over_music = pygame.mixer.Sound('audio/youdied.wav')
 
 		# overworld creation
 
@@ -34,23 +36,26 @@ class Game:
 	def create_level(self,current_level):
 		self.level = Level(current_level,screen,self.create_game_over, self.create_victory,self.change_health)
 		self.status = 'level'
-		self.overworld_bg_music.stop()
-		self.level_bg_music.stop()
+		pygame.mixer.stop()
 		self.level_bg_music.play(loops = -1)
 
 	def create_overworld(self,current_level):
 		self.status = 'overworld'
 		self.overworld = Overworld(current_level,self.create_level,screen)
+		pygame.mixer.stop()
 		self.overworld_bg_music.play(loops = -1)
-		self.level_bg_music.stop()
 	
 	def create_game_over(self,current_level):
 		self.status = 'game_over'
 		self.game_over = Game_Over(current_level,self.create_level,self.create_overworld,screen)
+		pygame.mixer.stop()
+		self.game_over_music.play()
 		
 	def create_victory(self,current_level):
 		self.status = 'victory'
 		self.victory = Victory(current_level,self.create_level,self.create_overworld,screen)
+		pygame.mixer.stop()
+		self.victory_music.play(loops = -1)
 
 	def create_cut_scene(self):
 		credits_rect = self.credits.get_rect(center=(screen_width/2, screen_height/2))
@@ -71,8 +76,6 @@ class Game:
 			self.coins = 0
 			self.max_level = 0
 			self.create_game_over(0)
-			self.level_bg_music.stop()
-			self.overworld_bg_music.play(loops = -1)
 
 	def run(self):
 		if self.status == 'overworld':

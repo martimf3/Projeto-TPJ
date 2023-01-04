@@ -27,7 +27,6 @@ class Level:
 		self.stomp_sound = pygame.mixer.Sound('audio/effects/stomp.wav')
 
 		# overworld connection 
-		#self.create_overworld = create_overworld
 		self.current_level = current_level
 		level_data = levels[self.current_level]
 
@@ -40,7 +39,6 @@ class Level:
 		# user interface 
 		tutorial_layout = import_csv_layout(level_data['tutorial'])
 		self.tutorial_sprites = self.create_tile_group(tutorial_layout,'tutorial')
-		#self.change_coins = change_coins
 
 		# dust 
 		self.dust_sprite = pygame.sprite.GroupSingle()
@@ -61,7 +59,7 @@ class Level:
 		coin_layout = import_csv_layout(level_data['coins'])
 		self.coin_sprites = self.create_tile_group(coin_layout,'coins')
 
-		# Diamond 
+		# diamond 
 		diamond_layout = import_csv_layout(level_data['diamond'])
 		self.diamond_sprites = self.create_tile_group(diamond_layout,'diamond')
 
@@ -209,18 +207,14 @@ class Level:
 	def check_death(self):
 		if self.player.sprite.rect.top > screen_height:
 			self.coin_counter_surf.update(0)
-			#self.create_level(self.current_level)
 			self.change_health(100)
 			self.game_over(0)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):
 			if self.current_level == 0:
-				#self.create_level(self.current_level + 1)
 				self.change_health(100)
 				self.victory(0)
-			#if self.current_level == 1:
-				#self.create_overworld(0)
 			
 	def check_coin_collisions(self):
 		collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)
@@ -303,6 +297,7 @@ class Level:
 
 		self.check_coin_collisions()
 		self.check_enemy_collisions()
+		
 		# water 
 		self.water.draw(self.display_surface,self.world_shift)
 		
