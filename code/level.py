@@ -15,6 +15,7 @@ class Level:
 		self.display_surface = surface
 		self.world_shift = 0
 		self.current_x = None
+		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
 		self.create_level = create_level
 		self.coin_counter = CoinCounter()
 		self.coin_counter_surf = CoinCounterDisplay(self.coin_counter, self.display_surface)
@@ -119,10 +120,6 @@ class Level:
 				if val == '0':
 					sprite = Player((x,y),self.display_surface,self.create_jump_particles,change_health)
 					self.player.add(sprite)
-				if val == '1':
-					hat_surface = pygame.image.load('graphics/character/hat.png').convert_alpha()
-					sprite = StaticTile(tile_size,x,y,hat_surface)
-					self.goal.add(sprite)
 
 	def enemy_collision_reverse(self):
 		for enemy in self.enemy_sprites.sprites():
