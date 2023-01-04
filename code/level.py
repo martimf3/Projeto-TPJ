@@ -203,14 +203,12 @@ class Level:
 
 	def check_death(self):
 		if self.player.sprite.rect.top > screen_height:
-			pygame.mixer.pause()
 			self.coin_counter_surf.update(0)
 			self.create_level(self.current_level)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):
 			if self.current_level == 0:
-				pygame.mixer.pause()
 				self.create_level(self.current_level + 1)
 			if self.current_level == 1:
 				self.create_overworld(0)
