@@ -78,7 +78,7 @@ class Game:
 
 # Pygame setup
 pygame.init()
-pygame.display.set_caption("Scraggle: Get the Diamond to Win!")
+pygame.display.set_caption("Scraggle: Get the Diamond to Win! GAME OF THE YEAR EDITION")
 game_icon = pygame.image.load('graphics/ui/icon.png')
 pygame.display.set_icon(game_icon)
 screen = pygame.display.set_mode((screen_width,screen_height))

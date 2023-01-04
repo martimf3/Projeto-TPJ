@@ -11,6 +11,7 @@ class Overworld:
 		self.BLACK = (0, 0, 0)
 		self.WHITE = (255, 255, 255)
 		self.GREEN = (0, 255, 0)
+		
 		# Load fonts
 		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
 		self.font_title = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 50)
