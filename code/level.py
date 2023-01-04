@@ -10,13 +10,14 @@ from game_data import levels
 from coin_observer import CoinCounter,CoinCounterDisplay
 
 class Level:
-	def __init__(self,current_level,surface,create_overworld, create_level,change_health):
+	def __init__(self,current_level,surface,game_over, victory,change_health):
 		# general setup
 		self.display_surface = surface
 		self.world_shift = 0
 		self.current_x = None
 		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
-		self.create_level = create_level
+		self.victory = victory
+		self.game_over = game_over
 		self.coin_counter = CoinCounter()
 		self.coin_counter_surf = CoinCounterDisplay(self.coin_counter, self.display_surface)
 		self.change_health = change_health
@@ -26,7 +27,7 @@ class Level:
 		self.stomp_sound = pygame.mixer.Sound('audio/effects/stomp.wav')
 
 		# overworld connection 
-		self.create_overworld = create_overworld
+		#self.create_overworld = create_overworld
 		self.current_level = current_level
 		level_data = levels[self.current_level]
 
@@ -208,14 +209,18 @@ class Level:
 	def check_death(self):
 		if self.player.sprite.rect.top > screen_height:
 			self.coin_counter_surf.update(0)
-			self.create_level(self.current_level)
+			#self.create_level(self.current_level)
+			self.change_health(100)
+			self.game_over(0)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):
 			if self.current_level == 0:
-				self.create_level(self.current_level + 1)
-			if self.current_level == 1:
-				self.create_overworld(0)
+				#self.create_level(self.current_level + 1)
+				self.change_health(100)
+				self.victory(0)
+			#if self.current_level == 1:
+				#self.create_overworld(0)
 			
 	def check_coin_collisions(self):
 		collided_coins = pygame.sprite.spritecollide(self.player.sprite,self.coin_sprites,True)

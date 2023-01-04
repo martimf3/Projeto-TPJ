@@ -5,8 +5,8 @@ from support import import_folder
 from decoration import Sky
 from settings import screen_height, screen_width
 
-class Overworld:
-	def __init__(self,first_level,create_level,screen):
+class Victory:
+	def __init__(self,first_level,create_level,create_overworld,screen):
 		#  Define colors
 		self.BLACK = (0, 0, 0)
 		self.WHITE = (255, 255, 255)
@@ -14,14 +14,15 @@ class Overworld:
 		# Load fonts
 		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
 		self.font_title = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 50)
-		self.arrow_image = pygame.image.load('graphics/ui/arrow.png')
 		self.title_card = pygame.image.load("graphics/ui/title-card.png")
+		self.arrow_image = pygame.image.load('graphics/ui/arrow.png')
 		self.create_level = create_level
+		self.create_overworld = create_overworld
 		self.first_level = first_level
-
+		self.screen = screen
 		# Render the menu options
 
-		self.option_1 = self.font.render(" NEW GAME ", True, self.WHITE)
+		self.option_1 = self.font.render(" PLAY AGAIN ", True, self.WHITE)
 		self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
 		self.text_y = 420
 		self.arrow_y = self.text_y - 20
@@ -56,9 +57,9 @@ class Overworld:
 	def Change_Text_Color(self):
 		if self.option == 0:
 			self.option_2 = self.font.render(" QUIT ", True, self.WHITE)
-			self.option_1 = self.font.render(" NEW GAME ", True, self.GREEN)
+			self.option_1 = self.font.render(" PLAY AGAIN ", True, self.GREEN)
 		else:
-			self.option_1 = self.font.render(" NEW GAME ", True, self.WHITE)
+			self.option_1 = self.font.render(" PLAY AGAIN ", True, self.WHITE)
 			self.option_2 = self.font.render(" QUIT ", True, self.GREEN)
 		
 
@@ -67,13 +68,13 @@ class Overworld:
 		keys = pygame.key.get_pressed()
 		self.blip_sound = pygame.mixer.Sound('audio/effects/coin.wav')
 		if keys[pygame.K_RETURN] and self.option == 0:
-			self.create_level(self.first_level)
+			self.create_level(0)
 			self.blip_sound.play()
 		elif keys[pygame.K_RETURN] and self.option == 1:
+			self.create_overworld(0)
 			self.blip_sound.play()
-			pygame.QUIT
-			pygame.quit()
-			sys.exit()
+			pygame.time.delay(500)
+			
 		elif keys[pygame.K_DOWN] and self.option == 0:
 			self.blip_sound.play()
 			self.option = 1
