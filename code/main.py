@@ -50,7 +50,6 @@ class Game:
 			self.max_level = 0
 			self.overworld = Overworld(0,self.create_level,screen)
 			self.status = 'overworld'
-			self.level = Level(self.current_level)
 			self.level_bg_music.stop()
 			self.overworld_bg_music.play(loops = -1)
 

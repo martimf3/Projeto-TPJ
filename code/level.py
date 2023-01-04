@@ -279,9 +279,9 @@ class Level:
 		# player sprites
 		self.player.update()
 		self.horizontal_movement_collision()
-		
-		self.get_player_on_ground()
 		self.vertical_movement_collision()
+
+		self.get_player_on_ground()
 		self.create_landing_dust()
 		
 		self.scroll_x()
