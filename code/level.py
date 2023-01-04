@@ -99,7 +99,7 @@ class Level:
 						if val == '1': sprite = Coin(tile_size,x,y,'graphics/coins/silver',1)
 
 					if type == 'diamond':
-						sprite = Diamond(tile_size,x,y,'graphics/coins/gold')
+						sprite = Diamond(tile_size,x,y,'graphics/coins/diamond')
 
 					if type == 'enemies':
 						sprite = Enemy(tile_size,x,y)
