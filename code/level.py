@@ -37,8 +37,8 @@ class Level:
 		self.player_setup(player_layout,change_health)
 
 		# user interface 
-		#tutorial_layout = import_csv_layout(level_data['tutorial'])
-		#self.tutorial_sprites = self.create_tile_group(tutorial_layout,'tutorial')
+		tutorial_layout = import_csv_layout(level_data['tutorial'])
+		self.tutorial_sprites = self.create_tile_group(tutorial_layout,'tutorial')
 		#self.change_coins = change_coins
 
 		# dust 
@@ -92,10 +92,10 @@ class Level:
 						tile_surface = terrain_tile_list[int(val)]
 						sprite = StaticTile(tile_size,x,y,tile_surface)
 
-					#if type == 'tutorial':
-						#tutorial_tile_list = import_cut_graphics('graphics/terrain/terrain_tiles.png')
-						#tile_surface = tutorial_tile_list[int(val)]
-						#sprite = StaticTile(tile_size,x,y,tile_surface)
+					if type == 'tutorial':
+						tutorial_tile_list = import_cut_graphics('graphics/terrain/tutorial_tiles.png')
+						tile_surface = tutorial_tile_list[int(val)]
+						sprite = StaticTile(tile_size,x,y,tile_surface)
 						
 					if type == 'grass':
 						grass_tile_list = import_cut_graphics('graphics/decoration/grass/grass.png')
@@ -257,8 +257,8 @@ class Level:
 		self.terrain_sprites.update(self.world_shift)
 		self.terrain_sprites.draw(self.display_surface)
 
-		#self.tutorial_sprites.update(self.world_shift)
-		#self.tutorial_sprites.draw(self.display_surface)
+		self.tutorial_sprites.update(self.world_shift)
+		self.tutorial_sprites.draw(self.display_surface)
 		
 		# enemy 
 		self.enemy_sprites.update(self.world_shift)
