@@ -14,7 +14,7 @@ class Victory:
 		# Load fonts
 		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
 		self.font_title = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 50)
-		self.title_card = pygame.image.load("graphics/ui/title-card.png")
+		self.title_card = pygame.image.load("graphics/ui/victory.png")
 		self.arrow_image = pygame.image.load('graphics/ui/arrow.png')
 		self.create_level = create_level
 		self.create_overworld = create_overworld
