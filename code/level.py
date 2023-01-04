@@ -206,7 +206,6 @@ class Level:
 			pygame.mixer.pause()
 			self.coin_counter_surf.update(0)
 			self.create_level(self.current_level)
-			#self.change_health(100)
 			
 	def check_win(self):
 		if pygame.sprite.spritecollide(self.player.sprite,self.diamond_sprites,False):

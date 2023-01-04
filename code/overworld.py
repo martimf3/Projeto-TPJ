@@ -40,7 +40,6 @@ class Overworld:
 		screen.blit(self.title_card, (0, 0))
 
 		# Options
-
 		option1_rect = self.option_1.get_rect(center=(screen_width/2, screen_height/2))
 		screen.blit(self.option_1, (option1_rect.x,self.text_y + 50))
 

@@ -8,10 +8,13 @@ class Game:
 	def __init__(self):
 
 		# game attributes
+		self.WHITE = (255, 255, 255)
 		self.max_level = 2
 		self.max_health = 100
 		self.cur_health = 100
 		self.coins = 0
+		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
+		self.credits = self.font.render("A GAME BY MARTIM & JOAO", True, self.WHITE)
 		
 		# audio 
 		self.level_bg_music = pygame.mixer.Sound('audio/level_music.wav')
@@ -20,7 +23,7 @@ class Game:
 		# overworld creation
 
 		self.overworld = Overworld(0,self.create_level, screen)
-		self.status = 'overworld'
+		self.status = 'credits'
 		self.overworld_bg_music.play(loops = -1)
 
 		# user interface 
@@ -37,6 +40,14 @@ class Game:
 		self.status = 'overworld'
 		self.overworld_bg_music.play(loops = -1)
 		self.level_bg_music.stop()
+
+	def create_cut_scene(self):
+		credits_rect = self.credits.get_rect(center=(screen_width/2, screen_height/2))
+		screen.blit(self.credits, credits_rect)
+		pygame.display.flip()
+		pygame.time.wait(3000)
+		self.status = 'overworld'
+		self.run()
 
 	def change_health(self,amount):
 		self.cur_health += amount
@@ -57,10 +68,12 @@ class Game:
 		if self.status == 'overworld':
 			self.overworld.Draw(screen)
 			self.overworld.Update()
-		else:
+		elif self.status == 'level':
 			self.level.run()
 			self.ui.show_health(self.cur_health,self.max_health)
 			self.check_game_over()
+		elif self.status == 'credits':
+			self.create_cut_scene()
 
 # Pygame setup
 pygame.init()
