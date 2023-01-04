@@ -1,5 +1,6 @@
 level_0 = {
 		'terrain': 'levels/0/level_0_terrain.csv',
+		#tutorial':'levels//level_0_tutorial.csv',
 		'coins':'levels/0/level_0_coins.csv',
 		'enemies':'levels/0/level_0_enemies.csv',
 		'diamond':'levels/0/level_0_diamond.csv',
