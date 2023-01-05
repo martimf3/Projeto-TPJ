@@ -16,7 +16,7 @@ class Game:
 		self.cur_health = 100
 		self.coins = 0
 		self.font = pygame.font.Font('graphics/ui/ARCADEPI.TTF', 20)
-		self.credits = self.font.render("A GAME BY MARTIM & JOAO", True, self.WHITE)
+		self.credits = self.font.render("A GAME BY MARTIMF3 AND REED OLIVEIRA", True, self.WHITE)
 		
 		# audio 
 		self.level_bg_music = pygame.mixer.Sound('audio/level_music.wav')

@@ -245,7 +245,6 @@ class Level:
 		# sky 
 		self.sky.draw(self.display_surface)
 		self.clouds.draw(self.display_surface,self.world_shift)
-		#coin_count = self.coin_counter.get_coin_count()
 		self.coin_counter_surf.update(self.coin_counter.get_coin_count()) 
 
 		# dust particles 
