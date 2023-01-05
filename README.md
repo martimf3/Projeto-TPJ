@@ -1,7 +1,13 @@
 # Projeto-TPJ
 
 Scraggle: Get the Diamond to Win! GAME OF THE YEAR EDITION é um pequeno jogo platformer 2D criado no âmbito da UC de Tópicos de Programação para jogos pelos alunos
-João Oliveira (98767) e Martim Fernandes (114863).
+João Oliveira (98767) e Martim Fernandes (114863). É baseado no jogo original Super Mario, e a aparência é inspirada por rage platformers como Cat Mario e I Wanna Be The Guy.
+
+O jogo distingue-se pelo seu aspeto visual bizarro, com sprites originais concebidos para o efeito.
+
+Regras do jogo:
+
+O jogador pode-se movimentar para a esquerda ou direita, e saltar. Pode derrotar inimigos ao saltar em cima deles.
 
 [Link do repositório](https://github.com/martimf3/Projeto-TPJ)
 
